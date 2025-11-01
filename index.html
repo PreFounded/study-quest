@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Quest Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="confettiCanvas"></canvas>
+
+  <header>
+    <div class="title">🎯 QUEST: PREP FOR PRE-MODEL</div>
+    <div class="controls">
+      <div id="streakLabel">🔥 STREAK: 0 days</div>
+      <select id="themeSelect">
+        <option value="dark">Dark</option>
+        <option value="midnight">Midnight</option>
+        <option value="purple">Purple Glow</option>
+        <option value="amoled">AMOLED</option>
+      </select>
+      <button id="expandAll" class="secondary">⬇️ Expand All</button>
+      <button id="collapseAll" class="secondary">⬆️ Collapse All</button>
+      <button id="resetBtn" class="secondary">🔁 Reset Progress</button>
+    </div>
+  </header>
+
+  <div class="header-glow"></div>
+
+  <div class="container">
+    <div class="overall card">
+      <h2>Main Quest Progress</h2>
+      <div class="progress">
+        <div id="overall-progress" class="progress-bar"></div>
+        <div id="overall-label" class="progress-label">0%</div>
+      </div>
+      <div class="daily-quote" id="dailyQuote">Loading quote...</div>
+    </div>
+
+    <div id="tracker"></div>
+  </div>
+
+  <!-- Apple-style confirm modal -->
+  <div id="resetConfirm" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3>Reset all progress?</h3>
+      <p>This will clear all checkboxes, streaks, and milestones.</p>
+      <div class="modal-actions">
+        <button id="confirmReset" class="danger">Yes, reset</button>
+        <button id="cancelReset" class="secondary">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Confirmation popup logic
+    const modal = document.getElementById('resetConfirm');
+    const btnReset = document.getElementById('resetBtn');
+    const confirmReset = document.getElementById('confirmReset');
+    const cancelReset = document.getElementById('cancelReset');
+
+    btnReset.onclick = () => {
+      modal.style.display = 'flex';
+      modal.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, fill: 'forwards' });
+    };
+
+    cancelReset.onclick = () => {
+      modal.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' })
+        .onfinish = () => (modal.style.display = 'none');
+    };
+
+    confirmReset.onclick = () => {
+      modal.style.display = 'none';
+      if (typeof resetAll === 'function') resetAll();
+    };
+  </script>
+<footer class="sttps-footer">
+  <div class="footer-inner">
+    <span>Made by a student for students ·</span>
+    <a href="https://sttps.carrd.co" target="_blank" rel="noopener">
+      Straight To The Point (STTPS)
+    </a>
+    <span>· Optimize your laptop for peak performance ⚡</span>
+  </div>
+</footer>
+</body>
+</html>
